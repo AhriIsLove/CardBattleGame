@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie-edge">
+        <title>aspect-ratio</title>
+        <link rel="shortcut icon" href="#">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body style="overflow:hidden"><!--스크롤바 없애기-->
+        <div class="container">
+            <div class="leftTop">
+                <img  src="Images/Title.png">
+            </div>
+    
+            <canvas id="canvas">
+            </canvas>
+    
+            <div class="rightBottom">
+                <img  src="Images/Description.png">
+            </div>
+        </div>
+
+        <!--타이틀 씬 버튼-->
+        <button id="GameStartButton"></button>
+        <!--캐릭터 선택 씬 버튼
+
+            라디오 버튼 식으로 하기 위해 Label로 구성
+        -->
+        <input type="radio" name="Character" id="SORCERESS">
+        <label id="SorceressIcon" for="SORCERESS"></label>
+        <input type="radio" name="Character" id="GARROSH">
+        <label id="GarroshIcon" for="GARROSH"></label>
+
+        <script src="main.js"></script>
+    </body>
+</html>

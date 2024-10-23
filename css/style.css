@@ -1,0 +1,174 @@
+/*모든 항목 여백이 없도록*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+[type=radio]{
+    display: none;
+}
+
+/*로고 및 타이틀은 정사각형으로 판단*/
+/*9+16+9:9보다 좌우로 벌어지는 경우*/
+@media screen and (aspect-ratio>3.778) and (orientation: landscape){
+    .container{
+        display: flex;
+        flex-direction: row;
+    }
+    .leftTop{
+        height: 100vh;
+    }
+    canvas{
+        height: 100vh;
+        aspect-ratio: 16/9;
+    }
+    .rightBottom{
+        height: 100vh;
+    }
+}
+/*16:9보다 좌우로 벌어지는 경우*/
+@media screen and (aspect-ratio>1.778) and (orientation: landscape){
+    .container{
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        align-items: center;
+    }
+    .leftTop{
+        width: calc((100vw - (100vh*16/9))/2);
+        /*내부 이미지 상하 가운데 정렬*/
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+    /*내부 이미지 상하 가운데 정렬*/
+    .leftTop > img {
+        max-width:100%; max-height:100%;
+    }
+    canvas{
+        height: 100vh;
+        aspect-ratio: 16/9;
+    }
+    .rightBottom{
+        width: calc((100vw - (100vh*16/9))/2);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+    .rightBottom > img {
+        max-width:100%; max-height:100%;
+    }
+}
+/*16:9보다 상하로 벌어지는 경우*/
+@media screen and (aspect-ratio<1.778){
+    .container{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+    .leftTop{
+        height: calc((100vh - (100vw*9/16))/2);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+    .leftTop > img {
+        max-width:100%; max-height:100%;
+    }
+    canvas{
+        width: 100vw;
+        aspect-ratio: 16/9;
+    }
+    .rightBottom{
+        height: calc((100vh - (100vw*9/16))/2);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+    .rightBottom > img {
+        max-width:100%; max-height:100%;
+    }
+}
+/*16+9+16:16보다 상하로 벌어지는 경우*/
+@media screen and (aspect-ratio<0.39){
+    .container{
+        display: flex;
+        flex-direction: column;
+    }
+    .leftTop{
+        width: 100vw;
+    }
+    canvas{
+        width: 100vw;
+        aspect-ratio: 16/9;
+    }
+    .rightBottom{
+        width: 100vw;
+    }
+}
+/*모든 이미지*/
+img{
+    display: block;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+/*모든 버튼*/
+button{
+    position: absolute;
+
+    display: none;
+}
+/*타이틀 씬 : 게임시작 버튼*/
+#GameStartButton{
+    display: block;/*디폴트로 안보이게 설정*/
+    border: none;/*테두리*/
+    background-color: rgba(0,0,0,0);/*배경*/
+    background-image:url("../Images/GameStart_N.png");/*이미지*/
+    background-size: contain;/*이미지 채우기*/
+    background-repeat: no-repeat;/*이미지 반복 해제*/
+
+    /*버튼 스프라이트 애니메이션
+https://ttowa.tistory.com/entry/CSS-Sprite%EC%8A%A4%ED%94%84%EB%9D%BC%EC%9D%B4%ED%8A%B8-Image%EB%A1%9C-Mostion-%EB%A7%8C%EB%93%A4%EA%B8%B0*/
+}
+#GameStartButton:hover{
+    background-image:url("../Images/GameStart_O.png");
+}
+#GameStartButton:active{
+    background-image:url("../Images/GameStart_P.png");
+}
+/*캐릭터 선택 씬 : 소서리스*/
+#SorceressIcon{
+    position: absolute;/*라벨로 할 경우 있어야 보임*/
+    display: block;/*디폴트로 안보이게 설정*/
+    border: none;/*테두리*/
+    background-color: rgba(0,0,0,0);/*배경*/
+    background-image:url("../Images/Character/Sorceress_Icon_N.png");/*이미지*/
+    background-size: contain;/*이미지 채우기*/
+    background-repeat: no-repeat;/*이미지 반복 해제*/
+}
+#SorceressIcon:hover{
+    background-image:url("../Images/Character/Sorceress_Icon_O.png");
+}
+#SorceressIcon:active, 
+[type=radio]:checked + #SorceressIcon{
+    background-image:url("../Images/Character/Sorceress_Icon_P.png");
+}
+/*캐릭터 선택 씬 : 가로쉬*/
+#GarroshIcon{
+    position: absolute;/*라벨로 할 경우 있어야 보임*/
+    display: block;/*디폴트로 안보이게 설정*/
+    border: none;/*테두리*/
+    background-color: rgba(0,0,0,0);/*배경*/
+    background-image:url("../Images/Character/Garrosh_Icon_N.png");/*이미지*/
+    background-size: contain;/*이미지 채우기*/
+    background-repeat: no-repeat;/*이미지 반복 해제*/
+}
+#GarroshIcon:hover{
+    background-image:url("../Images/Character/Garrosh_Icon_O.png");
+}
+#GarroshIcon:active, 
+[type=radio]:checked + #GarroshIcon{
+    background-image:url("../Images/Character/Garrosh_Icon_P.png");
+}
