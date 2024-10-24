@@ -63,7 +63,7 @@ class CText{
                 m_Ctx.fillText(line, drawX, currentY);
                 if(this.text[i] != '\n') line = this.text[i];
                 else line = "";
-                currentY += this.fontsize * (m_Canvas.width/100)*1.0;
+                currentY += this.fontsize * (m_Canvas.width/100)*1.2;
             }
         }
         if(this.align == "center")
@@ -113,16 +113,34 @@ class CSprite{
     }
 }
 class CCharacter{
-    id = "";
-    name = "";
-    healthPoint = 100;
-    resourcePoint = 50;
+    Id = "";
+    Name = "";
 
-    constructor(p_id, p_name, p_healthPoint, p_resourcePoint){
-        this.id = p_id;
-        this.name = p_name;
-        this.healthPoint = p_healthPoint;
-        this.resourcePoint = p_resourcePoint;
+    MaxHP = 100;
+    HP = 100;
+    HPRecovery = 0;
+
+    MaxRP = 100;//리소스 포인트
+    RP = 50;
+    RPRecovery = 15;
+
+    Armor = 0
+
+    Attack = 100;//%
+    AttackSpeed = 100;//%
+    Duration = 100;//% 지속시간
+
+    ItemLuck = 100;//행운
+    ExpLuck = 100;
+    CoinLuck = 100;
+
+    ItemReroll = 0;//아이템 리롤 횟수
+
+    //Debuff = 100;//난이도 조절용?
+
+    constructor(p_Id, p_Name){
+        this.Id = p_Id;
+        this.Name = p_Name;
     }
 }
 

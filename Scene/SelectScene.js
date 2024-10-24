@@ -10,8 +10,11 @@ var m_CharacterSprite = new CSprite();
 var m_RightFrameImg = new CImage();
 var m_CharacterStateText = new CText();
 
+//캐릭터
+var m_MapCharacters = new Map();
 //소서리스
-var m_Sorceress = new CCharacter("Sorceress", "소서리스", 100, 50);
+var m_Sorceress = new CCharacter("SORCERESS", "소서리스");
+m_MapCharacters.set("SORCERESS", m_Sorceress);
 var m_SorceressIcon = document.getElementById('SorceressIcon');
 //버튼 위에서도 마우스 좌표 인식(필요없을지도)
 m_SorceressIcon.addEventListener("mousemove", function(e) {
@@ -20,7 +23,8 @@ m_SorceressIcon.addEventListener("mousemove", function(e) {
 });
 var m_SorceressIconText = new CText();
 //가로쉬
-var m_Garrosh = new CCharacter("Garrosh", "가로쉬", 100, 0);
+var m_Garrosh = new CCharacter("GARROSH", "가로쉬");
+m_MapCharacters.set("GARROSH", m_Garrosh);
 var m_GarroshIcon = document.getElementById('GarroshIcon');
 //버튼 위에서도 마우스 좌표 인식(필요없을지도)
 m_GarroshIcon.addEventListener("mousemove", function(e) {
@@ -41,13 +45,21 @@ m_SelectedCharacter.forEach((radio) => {
             m_CharacterSprite.img.src = "Images/Character/" + m_SelectedCharacter + "_Idle.png";
             //프레임 수 설정을 여기서 해줘야 할것 같기도 하고
             
-            //선택한 캐릭터의 정보를 표시
+            //선택한 캐릭터의 정보 가져오기
+            var characterInfo = m_MapCharacters.get(m_SelectedCharacter);
+
             SetText(m_CharacterStateText, 
-                "체력 : " + 123 + "\n" +  
-                "마나 : " + 123 + "\n" +  
-                "체력 : " + 123 + "\n" +  
-                "체력 : " + 123 + "\n" +  
-                "체력 : " + 123 + "\n");
+                "이름 : " + characterInfo.Name + "\n" +  
+                "최대체력 : " + characterInfo.MaxHP + "\n" +  
+                "체력회복 : " + characterInfo.HPRecovery + "\n" +  
+                "최대자원 : " + characterInfo.MaxRP + "\n" +  
+                "자원회복 : " + characterInfo.RPRecovery + "\n" +  
+                "방어력 : " + characterInfo.Armor + "\n" +  
+                "피해량 : " + characterInfo.Attack + "%\n" +  
+                "공격속도 : " + characterInfo.AttackSpeed + "%\n" +  
+                "행운 : " + characterInfo.ItemLuck + "%\n" +  
+                "추가골드 : " + characterInfo.CoinLuck + "%\n" +  
+                "새로고침 : " + characterInfo.ItemReroll + "\n");
         }
     });
 });
@@ -58,8 +70,8 @@ function LoadingSelectScene()
     SetImage(m_MainFrameImg, 0.2, 0.0, 0.6, 1.0, 0);//슬라이드 할 예정이라 투명하게
     SetText(m_FrameText, "캐릭터 선택\n", FONTSIZE.LEVEL4, "magenta", "center", 0.3, 0.1, 0.4, 0);
 
-    SetText(m_SorceressIconText, m_Sorceress.name, FONTSIZE.LEVEL2, "white", "center",0.25, 0.4, 0.1, 0);
-    SetText(m_GarroshIconText, m_Garrosh.name, FONTSIZE.LEVEL2, "white", "center", 0.35, 0.4, 0.1, 0);
+    SetText(m_SorceressIconText, m_Sorceress.Name, FONTSIZE.LEVEL2, "white", "center",0.25, 0.4, 0.1, 0);
+    SetText(m_GarroshIconText, m_Garrosh.Name, FONTSIZE.LEVEL2, "white", "center", 0.35, 0.4, 0.1, 0);
     
     m_LeftFrameImg.img.src = "Images/Frame_Sub.png";
     SetImage(m_LeftFrameImg, 0.01, 0.05, 0.2, 0.6, 0);//슬라이드 할 예정이라 투명하게
