@@ -125,7 +125,7 @@ button{
     display: block;/*디폴트로 안보이게 설정*/
     border: none;/*테두리*/
     background-color: rgba(0,0,0,0);/*배경*/
-    background-image:url("../Images/GameStart_N.png");/*이미지*/
+    background-image:url("../Images/UI/GameStart_N.png");/*이미지*/
     background-size: contain;/*이미지 채우기*/
     background-repeat: no-repeat;/*이미지 반복 해제*/
 
@@ -133,10 +133,26 @@ button{
 https://ttowa.tistory.com/entry/CSS-Sprite%EC%8A%A4%ED%94%84%EB%9D%BC%EC%9D%B4%ED%8A%B8-Image%EB%A1%9C-Mostion-%EB%A7%8C%EB%93%A4%EA%B8%B0*/
 }
 #GameStartButton:hover{
-    background-image:url("../Images/GameStart_O.png");
+    background-image:url("../Images/UI/GameStart_O.png");
 }
 #GameStartButton:active{
-    background-image:url("../Images/GameStart_P.png");
+    background-image:url("../Images/UI/GameStart_P.png");
+}
+/*캐릭터 선택 씬 : 뒤로가기*/
+#BackButton{
+    display: block;/*디폴트로 안보이게 설정*/
+    border: none;/*테두리*/
+    background-color: rgba(0,0,0,0);/*배경*/
+    background-image:url("../Images/UI/BackButton_N.png");/*이미지*/
+    background-size: contain;/*이미지 채우기*/
+    background-repeat: no-repeat;/*이미지 반복 해제*/
+}
+#BackButton:hover{
+    background-image:url("../Images/UI/BackButton_O.png");
+}
+#BackButton:active, 
+[type=radio]:checked + #SorceressIcon{
+    background-image:url("../Images/UI/BackButton_P.png");
 }
 /*캐릭터 선택 씬 : 소서리스*/
 #SorceressIcon{

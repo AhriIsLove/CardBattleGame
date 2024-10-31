@@ -189,11 +189,13 @@ function ConvertToCanvasMouse(x, y){
 }
 
 ///이미지
-function SetImage(p_object, p_x, p_y, p_w, p_h, p_opacity){
+function SetImagePosition(p_object, p_x, p_y, p_w, p_h){
     p_object.x = p_x;
     p_object.y = p_y;
     p_object.w = p_w;
     p_object.h = p_h;
+}
+function SetImageOpacity(p_object, p_opacity){
     p_object.opacity = p_opacity;
 }
 //이미지 객체 액션
@@ -222,7 +224,7 @@ function SlideImage(p_object, p_Count = 10, p_Range = 0.01, callback = null)
 }
 
 ///텍스트
-function SetText(p_object, p_Text, p_FontSize, p_Color, p_Align, p_x, p_y, p_width, p_opacity){
+function SetText(p_object, p_Text, p_FontSize, p_Color, p_Align, p_x, p_y, p_width){
     p_object.text = p_Text;
     //텍스트만 변경할 경우
     if(p_FontSize == undefined/*NULL*/) return;
@@ -232,6 +234,8 @@ function SetText(p_object, p_Text, p_FontSize, p_Color, p_Align, p_x, p_y, p_wid
     p_object.x = p_x;
     p_object.y = p_y;
     p_object.width = p_width;
+}
+function SetTextOpacity(p_object, p_opacity){
     p_object.opacity = p_opacity;
 }
 //텍스트 객체 액션

@@ -2,7 +2,7 @@
 var m_BackgroundImg = new CImage();
 var m_TitleImg = new CImage();
 
-//게임시작 버튼
+//UI:게임시작 버튼
 var m_GameStartButton = document.getElementById('GameStartButton');
 //버튼 위에서도 마우스 좌표 인식(필요없을지도)
 m_GameStartButton.addEventListener("mousemove", function(e) {
@@ -16,12 +16,13 @@ m_GameStartButton.addEventListener("click", function(e) {
 //#endregion
 
 function LoadingTitleScene(){
-    m_BackgroundImg.img.src = "Images/background.png";
-    m_TitleImg.img.src = "Images/IngameTitle.png";
+    m_BackgroundImg.img.src = "Images/UI/background.png";
+    m_TitleImg.img.src = "Images/UI/IngameTitle.png";
 }
 function InitTitleScene(p_Animation = false){
     //타이틀 위치 조정
-    SetImage(m_TitleImg, 0.3, 0.1, 0.4, 0.2, 1);
+    SetImagePosition(m_TitleImg, 0.3, 0.1, 0.4, 0.2);
+    SetImageOpacity(m_TitleImg, 1);
 
     SetButton(m_GameStartButton, BUTTONSTATE.OFF, 0.4, 0.4, 0.2, 0.1);
 
@@ -50,6 +51,6 @@ function DrawTitleScene(){
     m_TitleImg.DrawImage();
 }
 function ExitTitleScene(){
-    //사용한 객체 삭제
+    //사용한 객체 비활성화
     SetButton(m_GameStartButton, BUTTONSTATE.OFF);
 }
