@@ -25,6 +25,7 @@ function InitTitleScene(p_Animation = false){
     SetImageOpacity(m_TitleImg, 1);
 
     SetButton(m_GameStartButton, BUTTONSTATE.OFF, 0.4, 0.4, 0.2, 0.1);
+    m_GameStartButton.disabled = false;//활성화
 
     //객체 액션 발동
     if(p_Animation)

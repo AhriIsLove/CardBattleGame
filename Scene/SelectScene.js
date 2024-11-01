@@ -1,7 +1,7 @@
 //#region 객체 선언부
 var m_MainFrameImg = new CImage();
 var m_FrameText = new CText();
-var m_LineHImg = new CImage();
+//var m_LineHImg = new CImage();
 
 var m_LeftFrameImg = new CImage();
 var m_LeftSubFrameImg = new CImage();
@@ -10,6 +10,18 @@ var m_CharacterSprite = new CSprite();
 
 var m_RightFrameImg = new CImage();
 var m_CharacterStateText = new CText();
+
+//UI:뒤로가기 버튼
+var m_BackButton = document.getElementById('BackButton');
+//버튼 위에서도 마우스 좌표 인식(필요없을지도)
+m_BackButton.addEventListener("mousemove", function(e) {
+    //마우스 좌표 캔버스 내 좌표로 변환
+    m_CanvasMouse = ConvertToCanvasMouse(e.clientX, e.clientY);
+});
+m_BackButton.addEventListener("click", function(e) {
+    //캐릭터 선택 씬으로 이동
+    ChangeScene(SCENE.TITLE);
+});
 
 //캐릭터
 var m_MapCharacters = new Map();
@@ -34,18 +46,6 @@ m_GarroshIcon.addEventListener("mousemove", function(e) {
 });
 var m_GarroshIconText = new CText();
 
-//UI:뒤로가기 버튼
-var m_BackButton = document.getElementById('BackButton');
-//버튼 위에서도 마우스 좌표 인식(필요없을지도)
-m_BackButton.addEventListener("mousemove", function(e) {
-    //마우스 좌표 캔버스 내 좌표로 변환
-    m_CanvasMouse = ConvertToCanvasMouse(e.clientX, e.clientY);
-});
-m_BackButton.addEventListener("click", function(e) {
-    //캐릭터 선택 씬으로 이동
-    ChangeScene(SCENE.TITLE);
-});
-
 //캐릭터 선택 이벤트
 var m_SelectedCharacter = document.querySelectorAll("input[name='Character']");
 m_SelectedCharacter.forEach((radio) => {
@@ -64,7 +64,7 @@ function SetSelectedCharacter(p_Character){
         SetText(m_CharacterStateText, "");
         return;
     }
-    
+
     //일러스트
     m_CharacterIllustImg.img.src = "Images/Character/" + p_Character + "_Illustration.png";
     //스프라이트
@@ -84,6 +84,9 @@ function SetSelectedCharacter(p_Character){
         "행운 : " + characterInfo.ItemLuck + "%\n" +  
         "추가골드 : " + characterInfo.CoinLuck + "%\n" +  
         "새로고침 : " + characterInfo.ItemReroll + "\n");
+       
+        //게임시작 버튼 활성화
+        m_GameStartButton.disabled = false;//활성화
 }
 //#endregion
 function LoadingSelectScene()
@@ -99,11 +102,10 @@ function LoadingSelectScene()
     SetText(m_GarroshIconText, m_Garrosh.Name, FONTSIZE.LEVEL2, "white", "center", 0.35, 0.4, 0.1);
     SetTextOpacity(m_GarroshIconText, 0);//슬라이드 할 예정이라 투명하게
     
-    m_LineHImg.img.src = "Images/UI/Line_H.png";
-    SetImagePosition(m_LineHImg, 0.25, 0.7, 0.5, 0.02);
-    SetImageOpacity(m_LineHImg, 0);//슬라이드 할 예정이라 투명하게
+    //m_LineHImg.img.src = "Images/UI/Line_H.png";
+    //SetImagePosition(m_LineHImg, 0.25, 0.7, 0.5, 0.02);
+    //SetImageOpacity(m_LineHImg, 0);//슬라이드 할 예정이라 투명하게
     
-
     m_LeftFrameImg.img.src = "Images/UI/Frame_Sub.png";
     SetImagePosition(m_LeftFrameImg, 0.01, 0.05, 0.2, 0.6);
     SetImageOpacity(m_LeftFrameImg, 0);//슬라이드 할 예정이라 투명하게
@@ -124,10 +126,13 @@ function LoadingSelectScene()
 }
 function InitSelectScene(p_Animation = false)
 {
+    SetButton(m_BackButton, BUTTONSTATE.OFF, 0.25, 0.08, 0.05, 0.05*CANVAS_RATE);
+
     SetButton(m_SorceressIcon, BUTTONSTATE.OFF, 0.25, 0.2, 0.1, 0.1*CANVAS_RATE);
     SetButton(m_GarroshIcon, BUTTONSTATE.OFF, 0.35, 0.2, 0.1, 0.1*CANVAS_RATE);
-
-    SetButton(m_BackButton, BUTTONSTATE.OFF, 0.28, 0.75, 0.08, 0.08*CANVAS_RATE);
+    
+    SetButton(m_GameStartButton, BUTTONSTATE.OFF, 0.81, 0.8, 0.16, 0.1);
+    m_GameStartButton.disabled = true;//비활성화
 
     //객체 액션 발동
     if(p_Animation)
@@ -137,10 +142,12 @@ function InitSelectScene(p_Animation = false)
     }
     else
     {
+        SetButton(m_BackButton, BUTTONSTATE.ON);
+
         SetButton(m_SorceressIcon, BUTTONSTATE.ON);
         SetButton(m_GarroshIcon, BUTTONSTATE.ON);
-
-        SetButton(m_BackButton, BUTTONSTATE.ON);
+        
+        SetButton(m_GameStartButton, BUTTONSTATE.ON);
     }
 }
 function InitSelectScene_Step0(){
@@ -150,6 +157,9 @@ function InitSelectScene_Step0(){
 function InitSelectScene_Step1(){
     //프레임 제목 슬라이드
     SlideText(m_FrameText, 10, 0.05, InitSelectScene_Step2);
+
+    //뒤로가기 버튼 슬라이드
+    SlideButton(m_BackButton, 10, 0.05);
 }
 function InitSelectScene_Step2(){
     //캐릭터 버튼 슬라이드
@@ -159,19 +169,19 @@ function InitSelectScene_Step2(){
     SlideText(m_GarroshIconText, 10, 0.05);
 }
 function InitSelectScene_Step3(){
-    //프레임 구분선 슬라이드
-    SlideImage(m_LineHImg, 10, 0.05, InitSelectScene_Step4);
+    ////프레임 구분선 슬라이드
+    //SlideImage(m_LineHImg, 10, 0.05);
 
-    //뒤로가기 버튼 슬라이드
-    SlideButton(m_BackButton, 10, 0.05);
-}
-function InitSelectScene_Step4(){
     //좌측 프레임 슬라이드
     SlideImage(m_LeftFrameImg, 10, 0.05);
     SlideImage(m_LeftSubFrameImg, 10, 0.05);
 
     //우측 프레임 슬라이드
-    SlideImage(m_RightFrameImg, 10, 0.05);
+    SlideImage(m_RightFrameImg, 10, 0.05, InitSelectScene_Step4);
+}
+function InitSelectScene_Step4(){
+    //게임시작 버튼 슬라이드
+    SlideButton(m_GameStartButton);
 }
 function DrawSelectScene()
 {
@@ -191,8 +201,8 @@ function DrawSelectScene()
     m_SorceressIconText.DrawText();
     m_GarroshIconText.DrawText();
     
-    //프레임 구분선
-    m_LineHImg.DrawImage();
+    ////프레임 구분선
+    //m_LineHImg.DrawImage();
 
     //좌측 프레임
     m_LeftFrameImg.DrawImage();
@@ -209,27 +219,27 @@ function ExitSelectScene(){
     SetImageOpacity(m_MainFrameImg, 0);
     SetTextOpacity(m_FrameText, 0);
 
+    SetButton(m_BackButton, BUTTONSTATE.OFF);
+
     SetTextOpacity(m_SorceressIconText, 0);
     SetTextOpacity(m_GarroshIconText, 0);
 
-    SetImageOpacity(m_LineHImg, 0);
+    //SetImageOpacity(m_LineHImg, 0);
 
     SetImageOpacity(m_LeftFrameImg, 0);
     SetImageOpacity(m_LeftSubFrameImg, 0);
-
-    //SetImageOpacity(m_CharacterIllustImg, 0);
 
     SetImageOpacity(m_RightFrameImg, 0);
 
     SetButton(m_SorceressIcon, BUTTONSTATE.OFF);
     SetButton(m_GarroshIcon, BUTTONSTATE.OFF);
 
-    SetButton(m_BackButton, BUTTONSTATE.OFF);
     SetTextOpacity(m_CharacterStateText, 0);
-
     //캐릭터 선택 정보 삭제
     m_SelectedCharacter.forEach((radio) => {
         radio.checked = false;
     })
     SetSelectedCharacter();
+
+    SetButton(m_GameStartButton, BUTTONSTATE.OFF);
 }

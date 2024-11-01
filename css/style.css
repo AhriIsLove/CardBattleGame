@@ -138,6 +138,9 @@ https://ttowa.tistory.com/entry/CSS-Sprite%EC%8A%A4%ED%94%84%EB%9D%BC%EC%9D%B4%E
 #GameStartButton:active{
     background-image:url("../Images/UI/GameStart_P.png");
 }
+#GameStartButton:disabled{
+    background-image:url("../Images/UI/GameStart_D.png");
+}
 /*캐릭터 선택 씬 : 뒤로가기*/
 #BackButton{
     display: block;/*디폴트로 안보이게 설정*/
